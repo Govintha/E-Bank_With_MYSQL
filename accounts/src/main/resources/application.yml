@@ -1,0 +1,35 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: "accounts"
+  profiles:
+    active:
+      - "prod"
+
+  datasource:
+    url: jdbc:mysql://localhost:3305/accountsdb
+    username: root
+    password: root
+
+  jpa:
+   show-sql: true
+  sql:
+   init:
+     mode: always
+  config:
+    import:
+      - "optional:configserver:http://localhost:8071/"
+
+
+
+logging:
+  pattern:
+    console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
